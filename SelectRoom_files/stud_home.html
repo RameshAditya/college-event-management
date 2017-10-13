@@ -1,0 +1,414 @@
+
+<!-- saved from url=(0048)https://vtop.vit.ac.in/student/leave_request.asp -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>V-TOP Student Login</title>
+
+<meta http-equiv="PRAGMA" content="NO-CACHE">
+
+<link href="./style2.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./datetimepicker_css.js.download"></script>
+<script src="./validate2.js.download" type="text/javascript"></script>
+
+<script language="JavaScript"> 
+function check_null()
+{
+	var d = document.leave_request;
+	
+	var vltp = d.lvtype.value;
+
+	if (d.apply.selectedIndex==0)
+	{
+		alert("Select the Approving Authorigy.")
+		d.apply.focus();
+		return false;
+	}
+	
+	if (d.lvtype.selectedIndex==0)
+	{
+		alert("Select the Leave Type")
+		d.lvtype.focus();
+		return false;
+	}
+	
+	if((vltp == "HT") || (vltp == "EY") || (vltp == "WP") || (vltp == "LG") || (vltp == "PJ") || (vltp == "II") || (vltp == "EP") || (vltp == "AE") || (vltp == "SL") || (vltp == "WV"))
+	{
+
+		if((d.exitdate.value.length<1) || (d.exitdate.value.charAt(0)==" ")) 
+		{
+			alert("Select the Exit Date");
+			d.exitdate.select();
+			d.exitdate.focus();
+			return false;
+		}
+		
+		if(d.sttime_hh.selectedIndex == 0)
+		{
+			alert("Select Exit On Time Hours.");
+			d.sttime_hh.focus();
+			return false;
+		}
+		
+		if(d.sttime_mm.selectedIndex == 0)
+		{
+			alert("Select Exit On Time Minutes.");
+			d.sttime_mm.focus();
+			return false;
+		}
+		
+		if((d.frm_timetype[0].checked == false) && (d.frm_timetype[1].checked == false))
+		{
+			alert("Choose AM or PM.");
+			d.frm_timetype[0].focus();
+			return false;
+		}
+		
+		if((d.reentry_date.value.length<1) || (d.reentry_date.value.charAt(0)==" ")) 
+		{
+			alert("Select the Entry Date");
+			d.reentry_date.select();
+			d.reentry_date.focus();
+			return false;
+		}
+		
+		if(d.endtime_hh.selectedIndex == 0)
+		{
+			alert("Select Entry On Time Hours.");
+			d.endtime_hh.focus();
+			return false;
+		}
+		
+		if(d.endtime_mm.selectedIndex == 0)
+		{
+			alert("Select Entry On Time Minutes.");
+			d.endtime_mm.focus();
+			return false;
+		}
+		
+		if((d.to_timetype[0].checked == false) && (d.to_timetype[1].checked == false))
+		{
+			alert("Choose AM or PM.");
+			d.to_timetype[0].focus();
+			return false;
+		}
+		
+	}
+	else
+	{
+	
+		if((d.exitdate.value.length<1) || (d.exitdate.value.charAt(0)==" ")) 
+		{
+			alert("Select the Exit Date.");
+			d.exitdate.focus();
+			return false;
+		}
+		
+		if(d.sttime_hh.selectedIndex == 0)
+		{
+			alert("Select Exit On Time Hours.");
+			d.sttime_hh.focus();
+			return false;
+		}
+		
+		if(d.sttime_mm.selectedIndex == 0)
+		{
+			alert("Select Exit On Time Minutes.");
+			d.sttime_mm.focus();
+			return false;
+		}
+		
+		if((d.frm_timetype[0].checked == false) && (d.frm_timetype[1].checked == false))
+		{
+			alert("Choose AM or PM.");
+			d.frm_timetype[0].focus();
+			return false;
+		}
+		
+		if(d.endtime_hh.selectedIndex == 0)
+		{
+			alert("Select Entry On Time Hours.");
+			d.endtime_hh.focus();
+			return false;
+		}
+		
+		if(d.endtime_mm.selectedIndex == 0)
+		{
+			alert("Select Entry On Time Minutes.");
+			d.endtime_mm.focus();
+			return false;
+		}
+		
+		if((d.to_timetype[0].checked == false) && (d.to_timetype[1].checked == false))
+		{
+			alert("Choose AM or PM.");
+			d.to_timetype[0].focus();
+			return false;
+		}
+		
+	}
+
+	if ((d.place.value.length<1) || (d.place.value.charAt(0)==" ")) 
+	{
+		alert("Enter the place");
+		d.place.select();
+		d.place.focus();
+		return false;
+	}
+
+	if ((d.reason.value.length<1) || (d.reason.value.charAt(0)==" ")) 
+	{
+		alert("Enter the reason");
+		d.reason.select();
+		d.reason.focus();
+		return false;
+	}
+
+	return true;
+}
+
+function call_leave_dt()
+{
+	
+	var lvtyp = document.leave_request.lvtype.value;
+	
+	
+	if (lvtyp == "")
+	{
+		document.getElementById("txtHint").innerHTML="";
+		return;
+	}
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest(); 
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+	    	document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+	    }
+	}
+	
+	var now = new Date();
+	xmlhttp.open("GET","leave_apply_dt.asp?x="+ now.toUTCString() +"&lvtyp="+ lvtyp,true);
+	xmlhttp.send();
+}
+
+function textCounter(field,cntfield,maxlimit)
+{
+	if (field.value.length > maxlimit)	// if too long...trim it!
+	{
+		field.value = field.value.substring(0, maxlimit);
+	}
+	else	// otherwise, update 'characters left' counter
+	{
+		cntfield.value = maxlimit - field.value.length;
+	}
+}
+
+
+
+</script>
+</head>
+
+<body><table width="79%" border="0" cellpadding="0" cellspacing="0" height="350">
+ <tbody><tr>
+	<td valign="top" width="1%" bgcolor="#FFFFFF">
+		&nbsp;
+	</td>
+	<td valign="top" width="78%" bgcolor="#FFFFFF">
+	<br><br>
+	
+	
+	
+	<form name="leave_request" action="https://vtop.vit.ac.in/student/leave_request_submit.asp" method="post">
+	
+	<table border="1" width="76%" style="border-collapse: collapse" cellpadding="3">
+	
+	<tbody><tr bgcolor="#5A768D">
+		<td align="center" colspan="2">
+		<font color="#FFFFFF"><b>CREATE EVENT</b></font>
+		</td>
+	</tr>
+	
+	<tr>
+		<td width="37%" bgcolor="#5A768D"><font color="#FFFFFF"><b>Create</b></font> </td>
+		<td width="58%" bgcolor="#EDEADE">
+		
+			<select name="apply" class="textbox"> 
+			<option value="" selected="">Club Name</option>
+			
+					<option value="11960\FA">Club Name</option>
+				
+					<option value="10676\PM">Club Name</option>
+				
+
+			</select>
+			
+		</td>
+	</tr>
+	
+	<tr>
+		<td width="37%" bgcolor="#5A768D"><font color="#FFFFFF"><b>Event</b></font></td>
+		<td width="58%" bgcolor="#EDEADE">
+		<select name="lvtype" class="textbox" tabindex="1" onchange="call_leave_dt()">
+		<option value="" selected="">Event Name</option>
+		<option value="EY">A</option><option value="AE">B</option><option value="HT">C</option><option value="II">D</option><option value="LB">E</option><option value="PJ">F</option><option value="EP">G</option><option value="OG">H</option><option value="SH">I</option><option value="SV">J</option><option value="SP">K</option><option value="WV">L</option><option value="WP">Event Name</option>
+		</select>
+	</td></tr>
+	
+	<tr bgcolor="#B0BFCC">
+		<td colspan="2" align="center">
+			<span id="txtHint">
+
+
+
+
+<title>V-TOP Student Login</title>
+
+<meta http-equiv="PRAGMA" content="NO-CACHE">
+
+<link href="./style2.css" rel="stylesheet" type="text/css">
+
+	
+
+	<table cellspacing="0" cellpadding="4" border="1" width="550" style="border-collapse: collapse;" bordercolor="black">
+		
+	<tbody><tr>
+		<td bgcolor="#333333" width="150"><font color="#FFFFFF"><b>Event Start Date</b></font></td>
+		<td bgcolor="#CCCCCC">
+			<input type="text" id="demo32" name="exitdate" value="" class="textbox" size="15" maxlength="15">
+			<a href="javascript:NewCssCal(&#39;demo32&#39;,&#39;ddmmmyyyy&#39;,&#39;arrow&#39;)" tabindex="1">
+			<img border="0" src="./cal.gif" width="16" height="16" alt="Pick a date"></a>
+		</td>
+	</tr>
+	
+	<tr>
+		<td bgcolor="#333333" width="150"><font color="#FFFFFF"><b>Event Start Time</b></font></td>
+		<td bgcolor="#CCCCCC">
+		
+			<font color="#000000">Hrs :</font> 
+			<select class="textbox" name="sttime_hh" tabindex="1">
+			<option value="" selected="">-- Select --</option>
+			<option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
+			</select>&nbsp;&nbsp;
+			
+			<font color="#000000">Min :</font>
+			<select class="textbox" name="sttime_mm" tabindex="1">
+			<option value="" selected="">-- Select--</option>
+			<option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option><option value="60">60</option>
+			</select>
+			
+			<input type="radio" class="textbox" value="AM" name="frm_timetype" tabindex="1">&nbsp;<b>AM</b>
+			<input type="radio" class="textbox" value="PM" name="frm_timetype" tabindex="1">&nbsp;<b>PM</b>
+
+		</td>
+	</tr>
+
+		
+	<tr>
+		<td bgcolor="#333333" width="150"><font color="#FFFFFF"><b>Event End Date</b></font></td>
+		<td bgcolor="#CCCCCC">
+			<input type="text" id="demo33" name="reentry_date" value="" class="textbox" size="15" maxlength="15">
+			<a href="javascript:NewCssCal(&#39;demo33&#39;,&#39;ddmmmyyyy&#39;,&#39;arrow&#39;)" tabindex="1">
+			<img border="0" src="./cal.gif" width="16" height="16" alt="Pick a date"></a>
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="#333333" width="150"><font color="#FFFFFF"><b>Event End Time</b></font></td>
+		<td bgcolor="#CCCCCC">
+			
+			<font color="#000000">Hrs :</font> 
+			<select class="textbox" name="endtime_hh" tabindex="1">
+			<option value="" selected="">-- Select --</option>
+			<option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option><option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
+			</select>&nbsp;&nbsp;
+			
+			<font color="#000000">Min :</font>
+			<select class="textbox" name="endtime_mm" tabindex="1">
+			<option value="" selected="">-- Select --</option>
+			<option value="00">00</option><option value="05">05</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option><option value="35">35</option><option value="40">40</option><option value="45">45</option><option value="50">50</option><option value="55">55</option><option value="60">60</option>
+		</select>			
+		<input type="radio" class="textbox" value="AM" name="to_timetype" tabindex="1">&nbsp;<b>AM</b>
+		<input type="radio" class="textbox" value="PM" name="to_timetype" tabindex="1">&nbsp;<b>PM</b>
+
+		</td>
+	</tr>
+
+	
+	</tbody></table>
+</span>
+		</td>
+	</tr>	
+	
+	<tr>
+		<td width="37%" bgcolor="#5A768D"><font color="#FFFFFF"><b>Additional Requirements</b></font></td>	
+		<td width="58%" bgcolor="#EDEADE">
+			<textarea name="place" rows="5" cols="87" class="textbox" tabindex="3" style="overflow:hidden;" onkeydown="textCounter(document.leave_request.place,document.leave_request.remLen1,100)" onkeyup="textCounter(document.leave_request.place,document.leave_request.remLen1,100)">			</textarea>
+			&nbsp;<input class="textbox" type="text" name="remLen1" size="4" maxlength="3" value="55" readonly="">Total Seats available</td>
+	</tr>
+
+	<tr>
+		<td width="37%" bgcolor="#5A768D"><font color="#FFFFFF"><b>Room and Room No.</b></font></td>	
+		<td width="58%" bgcolor="#EDEADE">
+			<input type="text" name="reason" class="textbox" size="50" maxlength="50">
+		</td>
+	</tr>
+		
+	<tr bgcolor="#5A768D" align="center">
+		<td align="center" colspan="2">
+			<input type="submit" class="submit3" value="Apply" name="requestcmd" onclick="return check_null()">
+			&nbsp;&nbsp;
+			<input type="button" name="reset" class="submit3" value="Reset">
+		</td>
+	</tr>
+	</tbody></table>
+	</form>
+
+	
+		<br>
+		<table cellpadding="4" cellspacing="0" border="1" style="border-collapse: collapse;" bordercolor="black" width="800">
+		
+		<tbody><tr align="center" bgcolor="#5A768D" height="30">
+			<td width="50"><font color="#FFFFFF">Serial.No.</font></td>
+			<td width="80"><font color="#FFFFFF">Apply Id.</font></td>
+			<td width="80"><font color="#FFFFFF">Club Name</font></td>
+			<td><font color="#FFFFFF">Event Name</font></td>
+			<td width="80"><font color="#FFFFFF">From</font></td>
+			<td width="80"><font color="#FFFFFF">To</font></td>
+			<td width="100"><font color="#FFFFFF">Additional Requirements</font></td>
+			<td width="100"><font color="#FFFFFF">Status</font></td>
+			<td width="80"><font color="#FFFFFF">&nbsp;</font></td>
+		</tr>
+	
+			<tr bgcolor="#E6F2FF">
+			
+			<td align="center"><font color="black">1</font></td>
+			<td align="center"><font color="black">17170484</font></td>
+			<td align="center"><font color="black">IEEE-VIT</font></td>
+			<td><font color="black">ANDROID PROGRAMMING</font></td>
+			<td align="center"><font color="black">4.00PM 13-10-17</font></td>
+			<td align="center"><font color="black">5.00PM 13-10-17</font></td>
+			<td><font color="black">Android Studio</font></td>
+			<td><font color="black">Approved</font></td>
+			
+			<form method="post" action="https://vtop.vit.ac.in/student/leave_request_status.asp" target="_blank"></form>
+			<td align="center" width="80">
+				<input type="hidden" name="leave_id" value="17170484">
+				<input type="submit" class="submit3" name="requestcmd" value="Print">
+			</td>
+			
+		
+			</tr>
+	
+		</tbody></table> 	
+	
+	
+	</td>
+  </tr>
+</tbody></table>
+</body></html>
