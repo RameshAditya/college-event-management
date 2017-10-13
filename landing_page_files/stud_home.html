@@ -1,0 +1,195 @@
+
+<!-- saved from url=(0087)file:///C:/Users/Aditya/Desktop/VIT/Sem_3/HCI/Project/landing_page_files/stud_home.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<title>FFCS - Student Login</title>
+
+<meta http-equiv="PRAGMA" content="NO-CACHE">
+
+<link href="./style5.css" rel="stylesheet" type="text/css">
+
+<script language="javascript">
+
+    function proceed(mPflag,pmDivID) {
+
+        if (mPflag == 'False') {
+            mvar = document.getElementById("showMessage");
+            mvar.style.display = "block";
+            return false;
+        }
+
+        document.getElementById("optValue").value = pmDivID;
+        return true;
+    }
+
+    function chkDoc(pmFType) {
+
+        mfrm = document.getElementById("frmapp");
+        mDoc = document.getElementById('f' + pmFType);
+
+        if (mDoc.value == "") {
+            alert("Choose file");
+            return false;
+        }
+
+        document.getElementById('fname').value = mDoc.value;
+        document.getElementById('pvDocType').value = pmFType;
+        document.getElementById('pvActionIndicator').value = 'DL';
+        mfrm.submit();
+        return true;
+
+    }
+
+
+    function remDoc(pmFType) {
+
+        mfrm = document.getElementById("frmapp");
+        document.getElementById('pvDocType').value = pmFType;
+        document.getElementById('pvActionIndicator').value = 'RD';
+        mfrm.submit();
+        return true;
+
+    }
+
+    function subDoc() {
+
+
+        mfrm = document.getElementById("frmapp");
+
+        m0 = document.getElementById('aoi').value;
+        if (m0 == '') {
+            alert('Please type Area of Interest');
+            return false;
+        }
+       
+
+        if (document.getElementById('fRES') != null) {
+            m1 = document.getElementById('fRES').value;
+            if (m1 == '') {
+                alert('Please upload Resume file');
+                return false;
+            }
+        }
+
+        if (document.getElementById('fSOP') != null) {
+            m2 = document.getElementById('fSOP').value;
+            if (m2 == '') {
+                alert('Please upload Statement of Purpose file');
+                return false;
+            }
+        }
+
+
+        if (document.getElementById('fTST') != null) {
+            m3 = document.getElementById('fTST').value;
+            if (m3 == '') {
+                alert('Please upload Transcript file');
+                return false;
+            }
+        }
+
+        if (document.getElementById('fNOC') != null) {
+            m4 = document.getElementById('fNOC').value;
+            if (m4 == '') {
+                alert('Please upload No Objection file ');
+                return false;
+            }
+        }
+
+        if (document.getElementById('fSSP') != null) {
+            m5 = document.getElementById('fSSP').value;
+            if (m5 == '') {
+                alert('Please upload Salary Certificate file');
+                return false;
+            }
+        }
+
+        document.getElementById('pvActionIndicator').value = 'SD';
+        mfrm.submit();
+        return true;
+    }
+
+</script>
+
+
+
+
+
+</head>
+
+<body><table width="79%" border="0" cellpadding="0" cellspacing="0" height="350">
+  <tbody><tr>
+	<td valign="top" width="1%" bgcolor="#FFFFFF">
+		&nbsp;
+	</td>
+	<td valign="top" width="78%" bgcolor="#FFFFFF">
+		
+	<br>
+	<center>
+            <h3 style="color:navy">EVENT MANAGEMENT SYSTEM</h3>
+	<br>
+		
+	
+        <center>
+        <form name="frmSAP" id="frmSAP" method="post" action="https://vtop.vit.ac.in/student/sap.asp">
+            
+            <input type="hidden" id="optValue" name="optValue" value="">
+
+            <table width="75%" border="1" cellpadding="7" cellspacing="7" rules="cols" frame="box" style="background-color:#e7e7e7">
+                <tbody><tr>
+                    <td width="25%" align="center">
+                    	<!--<input class="submit3" type="submit" value="Reserve Room" href="C:\\Users\\Aditya\\Desktop\\VIT\\Sem_3\\HCI\\Project\\SelectAttendance_files\\stud_home.html">
+                    	-->
+
+                    	<a href="C:\\Users\\Aditya\\Desktop\\VIT\\Sem_3\\HCI\\Project\\SelectRoom_files\\stud_home.html">
+    						<div style="height:100%;width:100%">
+      						Reserve Room
+    						</div>
+  						</a>
+                    </td>
+
+                    <!--
+                    <a tabindex="100" class="sta" id="tree23ec0_0_11_link" style="white-space: nowrap; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 11px; line-height: normal; font-family: Arial; text-decoration: none; color: rgb(0, 0, 0);" onmouseover="return _STJS.domEvent(event,this)" onmouseout="return _STJS.domEvent(event,this)" onkeydown="return _STJS.domEvent(event,this);" onclick="return _STJS.domEvent(event,this)" href="C:\\Users\\Aditya\\Desktop\\VIT\\Sem_3\\HCI\\Project\\SelectAttendance_files\\stud_home.html" target="main">Reserve Room</a> 
+                    
+                    
+                    <td width="25%" align="center"><input class="submit3" type="submit" value="Attend Event" href="C:\\Users\\Aditya\\Desktop\\VIT\\Sem_3\\HCI\\Project\\SelectAttendance_files\\stud_home.html"></td>
+                    <td width="25%" align="center"><input class="submit3" type="submit" value="Make extra arrangements" onclick="return proceed(&#39;True&#39;,3);"></td>
+                	-->
+                	<td width="25%" align="center">
+                	<a href="C:\\Users\\Aditya\\Desktop\\VIT\\Sem_3\\HCI\\Project\\SelectAttendance_files\\stud_home.html" >
+    						<div style="height:100%;width:100%">
+      						Attend Event
+    						</div>
+  						</a>
+                    </td>
+
+                </tr>
+          
+            </tbody></table> 
+            <div id="flashMessage">
+                <br>
+                <br>
+                <p style="color:Gray;font-weight:bold;font-size:small;">Welcome to the event management system!<br>
+                                    Here you can book a room, confirm your attendance at an event, and arrange for additional or special requirements.<br>Thank you.</p>
+                <br>
+                <br>
+            </div>
+        </form>
+        </center>
+
+        <br>
+
+        
+
+        <div id="showMessage" style="display: block;">
+            
+            <center><p style="font-size:medium;"><font color="red">[WIP] Glitches may exist.</font></p></center>
+        </div>
+
+	<br><br>
+	</center></td>
+  </tr>
+</tbody></table>
+
+
+
+</body></html>
